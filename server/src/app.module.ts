@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { EventsModule } from './events/event.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
+import { join } from 'path';
+import { ServeStaticModule } from '@nestjs/serve-static';
 
 @Module({
   imports: [
@@ -12,6 +14,9 @@ import { ConfigModule } from '@nestjs/config';
         : process.env.MONGO_URI,
     ),
     EventsModule,
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '../../client/build'),
+    }),
   ],
   controllers: [],
   providers: [],
