@@ -62,6 +62,7 @@ export const EventForm: FunctionComponent = () => {
       <Form.Group controlId="formBasicFirstName">
         <Form.Label>First Name</Form.Label>
         <Form.Control
+          required
           value={firstName}
           onChange={handleFirstNameChange}
           type="text"
@@ -71,6 +72,7 @@ export const EventForm: FunctionComponent = () => {
       <Form.Group controlId="formBasicLastName">
         <Form.Label>Last Name</Form.Label>
         <Form.Control
+          required
           value={lastName}
           onChange={handleLastNameChange}
           type="text"
@@ -79,12 +81,22 @@ export const EventForm: FunctionComponent = () => {
 
       <Form.Group controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
-        <Form.Control value={email} onChange={handleEmailChange} type="email" />
+        <Form.Control
+          required
+          value={email}
+          onChange={handleEmailChange}
+          type="email"
+        />
       </Form.Group>
 
       <Form.Group controlId="formBasicEventDate">
         <Form.Label>Event Date</Form.Label>
-        <Form.Control value={date} onChange={handleDateChange} type="date" />
+        <Form.Control
+          required
+          value={date}
+          onChange={handleDateChange}
+          type="date"
+        />
       </Form.Group>
 
       <Button variant="primary" type="submit" disabled={loading}>

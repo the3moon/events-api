@@ -55,6 +55,10 @@ export const storeEvent = (formData: {
         },
       ],
     });
+    dispatch(changeFirstName(""));
+    dispatch(changeLastName(""));
+    dispatch(changeEmail(""));
+    dispatch(changeDate(""));
   } catch (error) {
     if (error.response) {
       const resp = error.response;
