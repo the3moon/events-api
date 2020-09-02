@@ -115,13 +115,14 @@ export const EventForm: FunctionComponent = () => {
           "Submit"
         )}
       </Button>
-      {messages.map((m, idx) => {
-        return (
-          <Alert key={idx} variant={m.type}>
-            {m.message}
-          </Alert>
-        );
-      })}
+      {messages &&
+        messages.map((m, idx) => {
+          return (
+            <Alert key={idx} variant={m.type}>
+              {m.message}
+            </Alert>
+          );
+        })}
     </Form>
   );
 };
