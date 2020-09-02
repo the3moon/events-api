@@ -10,6 +10,8 @@ const eventsInitialState: EventsState = {
   lastName: "",
   email: "",
   date: "",
+  messages: [],
+  loading: false,
 };
 
 export const eventsReducer: Reducer<EventsState, EventsActions> = (
@@ -28,6 +30,12 @@ export const eventsReducer: Reducer<EventsState, EventsActions> = (
     }
     case EventsActionsTypes.CHANGE_DATE: {
       return { ...state, date: action.payload };
+    }
+    case EventsActionsTypes.CHANGE_MESSAGES: {
+      return { ...state, messages: action.payload };
+    }
+    case EventsActionsTypes.CHANGE_LOADING: {
+      return { ...state, loading: action.payload };
     }
     default:
       return state;

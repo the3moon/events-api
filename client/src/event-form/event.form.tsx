@@ -1,6 +1,8 @@
 import React, { FunctionComponent, useCallback } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import Spinner from "react-bootstrap/Spinner";
+import Alert from "react-bootstrap/Alert";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../redux";
 import {
@@ -8,6 +10,7 @@ import {
   changeLastName,
   changeDate,
   changeEmail,
+  storeEvent,
 } from "./events.actions";
 
 export const EventForm: FunctionComponent = () => {
@@ -15,6 +18,8 @@ export const EventForm: FunctionComponent = () => {
   const lastName = useSelector((state: RootState) => state.events.lastName);
   const email = useSelector((state: RootState) => state.events.email);
   const date = useSelector((state: RootState) => state.events.date);
+  const messages = useSelector((state: RootState) => state.events.messages);
+  const loading = useSelector((state: RootState) => state.events.loading);
   const dispatch = useDispatch();
 
   const handleFirstNameChange = useCallback(
@@ -47,7 +52,9 @@ export const EventForm: FunctionComponent = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault();
-    console.log({ firstName, lastName, date, email });
+    dispatch(
+      storeEvent({ firstName, lastName, eventDate: new Date(date), email })
+    );
   };
 
   return (
@@ -80,9 +87,29 @@ export const EventForm: FunctionComponent = () => {
         <Form.Control value={date} onChange={handleDateChange} type="date" />
       </Form.Group>
 
-      <Button variant="primary" type="submit">
-        Submit
+      <Button variant="primary" type="submit" disabled={loading}>
+        {loading ? (
+          <>
+            <Spinner
+              as="span"
+              animation="border"
+              size="sm"
+              role="status"
+              aria-hidden="true"
+            />
+            Loading...
+          </>
+        ) : (
+          "Submit"
+        )}
       </Button>
+      {messages.map((m, idx) => {
+        return (
+          <Alert key={idx} variant={m.type}>
+            {m.message}
+          </Alert>
+        );
+      })}
     </Form>
   );
 };

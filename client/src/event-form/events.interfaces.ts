@@ -5,12 +5,16 @@ export interface EventsState {
   lastName: string;
   email: string;
   date: string;
+  messages: { message: string; type: string }[];
+  loading: boolean;
 }
 export enum EventsActionsTypes {
   CHANGE_FIRST_NAME = "CHANGE_FIRST_NAME",
   CHANGE_LAST_NAME = "CHANGE_LAST_NAME",
   CHANGE_EMAIL = "CHANGE_EMAIL",
   CHANGE_DATE = "CHANGE_DATE",
+  CHANGE_MESSAGES = "CHANGE_MESSAGES",
+  CHANGE_LOADING = "CHANGE_LOADING",
 }
 
 export interface ChangeEventFirstNameAction extends Action {
@@ -33,8 +37,20 @@ export interface ChangeEventDateAction extends Action {
   payload: string;
 }
 
+export interface ChangeEventMessagesAction extends Action {
+  type: EventsActionsTypes.CHANGE_MESSAGES;
+  payload: { message: string; type: string }[];
+}
+
+export interface ChangeEventLoadingAction extends Action {
+  type: EventsActionsTypes.CHANGE_LOADING;
+  payload: boolean;
+}
+
 export type EventsActions =
   | ChangeEventFirstNameAction
   | ChangeEventLastNameAction
   | ChangeEventEmailAction
-  | ChangeEventDateAction;
+  | ChangeEventDateAction
+  | ChangeEventLoadingAction
+  | ChangeEventMessagesAction;
